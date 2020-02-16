@@ -1,19 +1,39 @@
 {
   "name": "tkf",
-  "version": "1.0.0",
-  "description": "tkf task ui ",
-  "main": "index.js",
+  "version": "0.1.0",
+  "description": "TKF Home task UI",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint . --ext .js --ext .json"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/dannypk/tkf.git"
-  },
-  "author": "daniel.pacurici",
+  "author": "daniel pacurici",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/dannypk/tkf/issues"
   },
-  "homepage": "https://github.com/dannypk/tkf#readme"
+  "dependencies": {
+    "@babel/plugin-proposal-class-properties": "7.8.3",
+    "@babel/plugin-proposal-decorators": "7.8.3",
+    "@zeit/next-less": "1.0.1",
+    "axios": "0.19.2",
+    "classnames": "2.2.6",
+    "config": "3.2.5",
+    "http": "0.0.0",
+    "less": "3.11.1",
+    "mobx": "5.15.4",
+    "mobx-react": "6.1.8",
+    "next": "9.2.1",
+    "particles-bg": "2.4.7",
+    "prop-types": "15.7.2",
+    "react": "16.12.0",
+    "react-dom": "16.12.0",
+    "sessionstorage": "0.1.0",
+    "sha256": "0.2.0"
+  },
+  "devDependencies": {
+    "eslint-config-easy-configuration": "1.1.0",
+    "eslint-plugin-json-light": "1.0.3"
+  }
 }

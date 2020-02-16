@@ -1,0 +1,8 @@
+{
+  "version": "1.0.0",
+  "name": "tkf",
+  "env": "production",
+  "services": {
+    "tkfService": "https://tkf-service.herokuapp.com/tkf-service"
+  }
+}

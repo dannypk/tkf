@@ -1,0 +1,8 @@
+{
+  "version": "1.0.0",
+  "name": "tkf",
+  "env": "local",
+  "services": {
+    "tkfService": "http://localhost:15700/tkf-service"
+  }
+}
