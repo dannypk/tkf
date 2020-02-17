@@ -1,39 +1,55 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 
-import FormInput from '../components/input';
-
 import sequenceStore from '../stores/sequence.store';
 import authStore from '../stores/auth.store';
+
+import './sequence.less';
 
 @observer
 class SequencePage extends React.Component {
 
   renderLoadingSpinner() {
-    return <div>sequence is loading...</div>;
+    return <div>Verifying user...</div>;
   }
 
   async componentDidMount() {
     await authStore.verifyUsersToken();
-    await sequenceStore.getCurrentSequence();
+
+    if (authStore.user) {
+      await sequenceStore.getCurrentSequence();
+    }
   }
 
   render() {
     const { isLoading, sequence } = sequenceStore;
-    if (isLoading) {
+    const { user } = authStore;
+
+    if (isLoading || !user) {
       return this.renderLoadingSpinner();
     }
 
     return (
-      <div>
-        Current: {sequence}
+      <div className="SequencePage">
+        <h1>Hello {user.name}!</h1>
+        <div>Current sequence is: {sequence}</div>
 
-        <FormInput onChange={value => { sequenceStore.currentSequence = value; }}
-          value={sequenceStore.currentSequence} placeholder="Reset Sequence" />
+        <button className="SequencePage-nextSequenceButton"
+          onClick={() => sequenceStore.getNextSequence()}>Get next sequence
+        </button>
+        <button className="SequencePage-currentSequenceButton"
+          onClick={() => sequenceStore.getCurrentSequence()}>Get current sequence
+        </button>
 
-        <button onClick={() => sequenceStore.getNextSequence()}>Get next sequence</button>
-        <button onClick={() => sequenceStore.getCurrentSequence()}>Get current sequence</button>
-        <button onClick={() => sequenceStore.updateCurrentSequence()}>Reset sequence</button>
+        <div className="SequencePage-resetSequence">
+          <button className="SequencePage-resetSequenceButton"
+            onClick={() => sequenceStore.updateCurrentSequence()}>Reset sequence
+          </button>
+          
+          <input className="SequencePage-resetSequenceInput"
+            onChange={event => { sequenceStore.currentSequence = event.target.value; }}
+            value={sequenceStore.currentSequence} placeholder="Reset Sequence" />
+        </div>
       </div>
     );
   }

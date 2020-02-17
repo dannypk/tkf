@@ -8,7 +8,9 @@ class AuthStore {
   @observable newUserPassword = '';
   @observable newUserName = '';
   @observable newUserEmail = '';
+  @observable registerFailedError = '';
 
+  @observable loginFailedError = '';
   @observable password = '';
   @observable email = '';
 
@@ -17,19 +19,32 @@ class AuthStore {
   @observable isNewUser = false;
 
   async registerUser() {
-    const registerReponseData =
-      await authService.registerUser(this.newUserName, this.newUserEmail, sha256.x2(this.newUserPassword));
+    this.registerFailedError = '';
 
-    if (registerReponseData) {
-      navigationService.navigateToSequencePage();
+    try {
+      const registerReponseData =
+        await authService.registerUser(this.newUserName, this.newUserEmail, sha256.x2(this.newUserPassword));
+
+      if (registerReponseData) {
+        navigationService.navigateToSequencePage();
+      }
+    } catch (e) {
+      this.registerFailedError = `User already exists. Please try to log in. 
+        In case you forgot your password, please write us an email at support@tkf.com.`;
     }
   }
 
   async login() {
-    const loginResponseData = await authService.login(this.email, sha256.x2(this.password));
+    this.loginFailedError = '';
 
-    if (loginResponseData) {
-      navigationService.navigateToSequencePage();
+    try {
+      const loginResponseData = await authService.login(this.email, sha256.x2(this.password));
+      if (loginResponseData) {
+        this.user = loginResponseData;
+        navigationService.navigateToSequencePage();
+      }
+    } catch (e) {
+      this.loginFailedError = 'Email or password are incorrect.';
     }
   }
 
@@ -37,7 +52,10 @@ class AuthStore {
     const userHasValidToken = await authService.verifyUsersToken();
     if (!userHasValidToken) {
       navigationService.navigateToLoginPage();
+      return;
     }
+
+    this.user = userHasValidToken.user;
   }
 }
 

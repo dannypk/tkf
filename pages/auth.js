@@ -19,10 +19,8 @@ class AuthPage extends React.Component {
     return (
       <div className="AuthPage" >
         <div className="AuthPage-loginForm">
-          <div>
-            {isNewUser && <RegisterForm />}
-            {!isNewUser && <LoginForm />}
-          </div>
+          {isNewUser && <RegisterForm />}
+          {!isNewUser && <LoginForm />}
         </div>
         <ParticlesBg num={10} type="circle" bg />
       </div>

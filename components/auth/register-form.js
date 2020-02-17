@@ -20,6 +20,8 @@ const RegisterForm = observer(() => (
       onChange={(value => { authStore.newUserPassword = value; })} />
 
     <Button label="Create User" onClick={() => authStore.registerUser()} />
+
+    {authStore.registerFailedError && <div className="RegisterForm-errorMessage">{authStore.registerFailedError}</div>}
   </div>
 ));
 

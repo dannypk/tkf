@@ -18,9 +18,11 @@ const LoginForm = observer(() => (
 
     <Button label="Login" onClick={() => authStore.login()} />
 
-    <div className="AuthPage-register" >Don't have an account?&nbsp;
+    <div className="LoginForm-register">Don't have an account?&nbsp;
       <a href="#" onClick={() => { authStore.isNewUser = true; }}>Create</a>
     </div>
+
+    {authStore.loginFailedError && <div className="LoginForm-errorMessage">{authStore.loginFailedError}</div>}
   </div>
 ));
 
